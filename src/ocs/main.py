@@ -5,13 +5,21 @@ This module manages the overall flow of the AI landing page builder.
 It handles user input prompts and delivers the final output.
 """
 
+import sys
+import os
 from typing import Dict, Any, Optional
 import logging
 
+# Add the project root to the Python path
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
+
 # Import all agents
-from ..agents.layout import LayoutAgent
-from ..agents.taste import TasteAgent, TasteCritic
-from ..agents.landing_page import LandingPageAgent
+from src.agents.layout import LayoutAgent
+from src.agents.taste import TasteAgent, TasteCritic
+from src.agents.landing_page import LandingPageAgent
 
 
 class OCS:
@@ -105,3 +113,42 @@ class OCS:
                     "error": str(e)
                 }
             }
+
+def main():
+    """Main function to run OCS from command line."""
+    
+    # Basic command-line interaction
+    print("Welcome to OCS AI Landing Page Builder!")
+    print("="*50)
+    
+    # Get user prompt
+    try:
+        user_prompt = input("Enter a description for your desired landing page: ")
+    except EOFError:
+        print("\nNo input received. Exiting.")
+        return
+
+    if not user_prompt:
+        print("No prompt provided. Exiting.")
+        return
+        
+    # Initialize and process
+    ocs = OCS()
+    result = ocs.process_user_prompt(user_prompt)
+    
+    # Print output
+    if result.get("status") == "error":
+        print(f"\nAn error occurred: {result.get('message')}")
+    else:
+        print("\n✅ Landing page generation complete!")
+        
+        # Example: Print generated component names
+        if "react_components" in result:
+            print("Generated components:")
+            for name in result["react_components"].keys():
+                print(f"- {name}")
+    
+    print("\nOCS processing finished.")
+
+if __name__ == "__main__":
+    main()

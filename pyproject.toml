@@ -10,7 +10,7 @@ authors = [
 ]
 description = "OCS - AI-Powered Landing Page Builder for creating unique, high-quality landing pages"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.11"
 keywords = ["ai", "landing-page", "web-design", "automation", "gemini"]
 classifiers = [
     "Development Status :: 3 - Alpha",

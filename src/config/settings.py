@@ -10,8 +10,8 @@ class Config:
     """Configuration class for OCS system."""
     
     # Gemini AI Configuration
-    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
-    GEMINI_MODEL = "gemini-pro"
+    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "AIzaSyCbxm88IFLDRCC1ni6Z3UOlmij4W322Zlc")
+    GEMINI_MODEL = "gemini-2.5-flash-lite"
     
     # Default paths
     DATA_DIR = "data"

@@ -5,6 +5,7 @@ Decides the sections and their order for landing pages.
 Provides descriptions for each section (e.g., hero section, footer).
 """
 
+from src.utils.gemini_client import gemini_client
 from typing import List, Dict, Any
 import logging
 
@@ -19,6 +20,7 @@ class LayoutAgent:
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
+        self.gemini_client = gemini_client
         
         # Common section types
         self.section_types = {
@@ -47,7 +49,18 @@ class LayoutAgent:
         self.logger.info("Layout Agent analyzing user prompt")
         
         # TODO: Implement Gemini model integration for layout analysis
+        
         # For now, return a default structure
+        layout_structure = self.gemini_client.analyze_prompt_for_layout(user_prompt)
+         
+        if layout_structure and "sections" in layout_structure:
+            self.logger.info("Successfully generated layout with Gemini")
+            layout_structure["total_sections"] = len(layout_structure["sections"])
+            layout_structure["user_prompt"] = user_prompt
+            return layout_structure
+
+        # Fallback to default structure if Gemini fails
+        self.logger.warning("Failed to get layout from Gemini, using default structure")
 
         layout_structure = {
             "sections": [
