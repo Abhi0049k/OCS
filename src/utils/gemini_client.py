@@ -6,7 +6,7 @@ import google.generativeai as genai
 import json
 import logging
 from typing import Dict, Any, Optional, List
-from ..config import config
+from config import config
 
 
 class GeminiClient:
@@ -20,12 +20,8 @@ class GeminiClient:
     def _initialize_client(self):
         """Initialize the Gemini client."""
         try:
-            if not config.GEMINI_API_KEY:
-                self.logger.warning("Gemini API key not configured. AI features will be disabled.")
-                return
-            
-            genai.configure(api_key=config.GEMINI_API_KEY)
-            self.model = genai.GenerativeModel(config.GEMINI_MODEL)
+            genai.configure(api_key="AIzaSyBV9KG4g7LCY9M0-8bzPYZjICgc8Mmpo4k")
+            self.model = genai.GenerativeModel("gemini-2.5-flash")
             self.logger.info("Gemini client initialized successfully")
             
         except Exception as e:

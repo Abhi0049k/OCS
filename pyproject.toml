@@ -50,6 +50,9 @@ Documentation = "https://github.com/Abhi0049k/OCS#readme"
 [project.scripts]
 ocs = "src.ocs.main:main"
 
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
 [tool.black]
 line-length = 88
 target-version = ['py38']

@@ -9,9 +9,9 @@ from typing import Dict, Any, Optional
 import logging
 
 # Import all agents
-from ..agents.layout import LayoutAgent
-from ..agents.taste import TasteAgent, TasteCritic
-from ..agents.landing_page import LandingPageAgent
+from agents.layout import LayoutAgent
+from agents.taste import TasteAgent, TasteCritic
+from agents.landing_page import LandingPageAgent
 
 
 class OCS:
@@ -52,6 +52,8 @@ class OCS:
             # Step 1: Get layout structure from Layout Agent
             self.logger.info("Step 1: Analyzing layout structure...")
             layout_structure = self.layout_agent.analyze_prompt(user_prompt)
+
+            exit()
             
             # Step 2: Get taste configuration from Taste Agent
             self.logger.info("Step 2: Creating taste configuration...")
@@ -105,3 +107,20 @@ class OCS:
                     "error": str(e)
                 }
             }
+
+
+
+def main():
+    """Test the OCS system."""
+    ocs_system = OCS()
+    
+    test_prompt = "Create a modern tech startup landing page with a focus on AI solutions"
+    
+    result = ocs_system.process_user_prompt(test_prompt)
+    
+    print("Final Landing Page Output:")
+    print(result)
+
+
+if __name__ == "__main__":
+    main()

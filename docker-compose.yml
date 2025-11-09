@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  ocs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ocs-landing-page-builder
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - ENVIRONMENT=production
+      - DEBUG=false
+    volumes:
+      # Mount outputs directory to persist generated landing pages
+      - ./outputs:/app/outputs
+      # Mount logs directory for debugging
+      - ./logs:/app/logs
+      # Optional: Mount .env file if you prefer file-based config
+      - ./.env:/app/.env:ro
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    stdin_open: true  # Keep container running for interactive use
+    tty: true
+    
+  # Optional: Add a simple web server to serve generated files
+  web-server:
+    image: nginx:alpine
+    container_name: ocs-web-server
+    ports:
+      - "3000:80"
+    volumes:
+      - ./outputs:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - ocs
+    restart: unless-stopped
+    profiles:
+      - web
+
+# Optional: Add volumes for data persistence
+volumes:
+  ocs-outputs:
+    driver: local
+  ocs-logs:
+    driver: local

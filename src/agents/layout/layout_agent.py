@@ -7,6 +7,7 @@ Provides descriptions for each section (e.g., hero section, footer).
 
 from typing import List, Dict, Any
 import logging
+from utils.gemini_client import GeminiClient
 
 
 class LayoutAgent:
@@ -48,6 +49,11 @@ class LayoutAgent:
         
         # TODO: Implement Gemini model integration for layout analysis
         # For now, return a default structure
+
+        gemini_client = GeminiClient()
+        gemini_response = gemini_client.analyze_prompt_for_layout(user_prompt)
+
+        print("gemini_response:", gemini_response)
 
         layout_structure = {
             "sections": [

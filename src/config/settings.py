@@ -11,7 +11,7 @@ class Config:
     
     # Gemini AI Configuration
     GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
-    GEMINI_MODEL = "gemini-pro"
+    GEMINI_MODEL = "gemini-2.0-flash"
     
     # Default paths
     DATA_DIR = "data"
